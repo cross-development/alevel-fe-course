@@ -86,11 +86,77 @@
 
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="card" role="tabpanel" aria-labelledby="card-tab">
-          Data with pagination
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 col-md-6 col-sm-12 g-5" align="center">
+                <div class="card" style="width: 18rem">
+                  <img src="https://reqres.in/img/faces/7-image.jpg" class="card-img-top" alt="User avatar" />
+                  <div class="card-body">
+                    <h5 class="card-title">Michael Lawson</h5>
+                    <p class="card-text">michael.lawson@reqres.in</p>
+                    <a href="#7" class="btn btn-primary">View</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-sm-12 g-5" align="center">
+                <div class="card" style="width: 18rem">
+                  <img src="https://reqres.in/img/faces/8-image.jpg" class="card-img-top" alt="User avatar" />
+                  <div class="card-body">
+                    <h5 class="card-title">Lindsay Ferguson</h5>
+                    <p class="card-text">lindsay.ferguson@reqres.in</p>
+                    <a href="#8" class="btn btn-primary">View</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6 col-sm-12 g-5" align="center">
+                <div class="card" style="width: 18rem">
+                  <img src="https://reqres.in/img/faces/9-image.jpg" class="card-img-top" alt="User avatar" />
+                  <div class="card-body">
+                    <h5 class="card-title">Tobias Funke</h5>
+                    <p class="card-text">tobias.funke@reqres.in</p>
+                    <a href="#9" class="btn btn-primary">View</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-end mt-5">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
 
         <div class="tab-pane fade" id="form" role="tabpanel" aria-labelledby="form-tab">
-          Form with validation
+          <div class="container">
+            <form action="#" class="mt-5 needs-validation" novalidate>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input required type="email" class="form-control" id="exampleInputEmail1" />
+                <div class="invalid-feedback">Please choose a valid email</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input required type="password" class="form-control" id="exampleInputPassword1" />
+                <div class="invalid-feedback">Please choose a valid password</div>
+              </div>
+
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
