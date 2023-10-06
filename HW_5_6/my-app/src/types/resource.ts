@@ -1,7 +1,7 @@
 // Types
 import { ListWithPaginationRes, SingleRes } from './common';
 
-interface Resource {
+export interface Resource {
   id: number;
   name: string;
   year: number;

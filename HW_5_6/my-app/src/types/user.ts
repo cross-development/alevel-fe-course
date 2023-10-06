@@ -1,7 +1,7 @@
 // Types
 import { ListWithPaginationRes, SingleRes } from './common';
 
-interface User {
+export interface User {
   id: number;
   email: string;
   firstName: string;

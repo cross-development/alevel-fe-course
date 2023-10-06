@@ -5,10 +5,18 @@ import ResourcePage from '../pages/ResourcesPage';
 // Types
 import { ReactPageEnhanced } from '../types/app';
 
+type Link = typeof links;
+
+const links = {
+  home: '/',
+  users: '/users',
+  resources: '/resources',
+} as const;
+
 interface Route {
   key: string;
   title: string;
-  path: string;
+  path: Link[keyof Link];
   enabled: boolean;
   component: ReactPageEnhanced;
 }
@@ -17,21 +25,21 @@ const routes: Route[] = [
   {
     key: 'home',
     title: 'Home',
-    path: '/',
+    path: links.home,
     enabled: true,
     component: HomePage,
   },
   {
     key: 'users',
     title: 'Users',
-    path: '/users',
+    path: links.users,
     enabled: true,
     component: UsersPage,
   },
   {
     key: 'resources',
     title: 'Resources',
-    path: '/resources',
+    path: links.resources,
     enabled: true,
     component: ResourcePage,
   },
@@ -39,10 +47,12 @@ const routes: Route[] = [
 
 export interface RouterConfig {
   routes: Route[];
+  links: Link;
 }
 
 const routerConfig: RouterConfig = {
   routes,
+  links,
 };
 
 export default routerConfig;

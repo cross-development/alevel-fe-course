@@ -1,5 +1,5 @@
 // Packages
-import axios, { CreateAxiosDefaults } from 'axios';
+import axios, { AxiosError, AxiosResponse, CreateAxiosDefaults } from 'axios';
 import applyCaseMiddleware from 'axios-case-converter';
 // Configs
 import appConfig from '../configs/app';
@@ -13,5 +13,12 @@ const apiConfig: CreateAxiosDefaults = {
 };
 
 const apiClient = applyCaseMiddleware(axios.create(apiConfig));
+
+apiClient.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  (error: AxiosError) => {
+    throw error;
+  },
+);
 
 export default apiClient;

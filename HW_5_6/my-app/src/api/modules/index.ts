@@ -1,2 +1,2 @@
-export * as userModule from './user';
-export * as resourceModule from './resource';
+export * as userApi from './user';
+export * as resourceApi from './resource';

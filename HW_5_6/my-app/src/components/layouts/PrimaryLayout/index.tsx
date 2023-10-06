@@ -13,10 +13,10 @@ interface Props {
 }
 
 const PrimaryLayoutComponent: FC<Props> = memo(({ children }) => (
-  <Box>
+  <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
     <Header />
 
-    <Container>{children}</Container>
+    <Container sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>{children}</Container>
 
     <Footer />
   </Box>
