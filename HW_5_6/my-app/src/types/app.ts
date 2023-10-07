@@ -3,6 +3,7 @@ import { FC } from 'react';
 
 export enum LayoutEnum {
   PrimaryLayout = 'PrimaryLayout',
+  AuthLayout = 'AuthLayout',
 }
 
 type LayoutType = typeof LayoutEnum;

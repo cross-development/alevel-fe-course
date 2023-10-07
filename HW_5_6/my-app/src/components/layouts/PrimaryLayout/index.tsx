@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 // Components
 import Header from '../../common/Header';
 import Footer from '../../common/Footer';
+import Navigation from '../../common/Navigation';
 // Types
 import { ReactPageEnhanced } from '../../../types/app';
 
@@ -14,7 +15,9 @@ interface Props {
 
 const PrimaryLayoutComponent: FC<Props> = memo(({ children }) => (
   <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-    <Header />
+    <Header>
+      <Navigation />
+    </Header>
 
     <Container sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>{children}</Container>
 

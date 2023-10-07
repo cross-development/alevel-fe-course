@@ -6,6 +6,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
 // Components
 import App from './App';
+// Stores
+import { StoreContext, store } from './stores/store';
 // Configs
 import themeConfig from './configs/theme';
 import snackbarConfig from './configs/snackbar';
@@ -16,10 +18,12 @@ root.render(
   <BrowserRouter>
     <CssBaseline />
 
-    <ThemeProvider theme={themeConfig.theme}>
-      <SnackbarProvider {...snackbarConfig.provider}>
-        <App />
-      </SnackbarProvider>
-    </ThemeProvider>
+    <StoreContext.Provider value={store}>
+      <ThemeProvider theme={themeConfig.theme}>
+        <SnackbarProvider {...snackbarConfig.provider}>
+          <App />
+        </SnackbarProvider>
+      </ThemeProvider>
+    </StoreContext.Provider>
   </BrowserRouter>,
 );

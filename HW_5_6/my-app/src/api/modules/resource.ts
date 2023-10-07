@@ -1,17 +1,12 @@
 // API
-import apiClient from '../apiClient';
+import { apiCaller } from '../apiClient';
 // Types
 import { RequestParams } from '../../types/common';
 import { ResourceListRes, SingleResourceRes } from '../../types/resource';
 
-export const getResourceList = async (params: RequestParams): Promise<ResourceListRes> => {
-  const response = await apiClient.get<ResourceListRes>('unknown', { params });
-
-  return response.data;
+const Resources = {
+  list: (params: RequestParams) => apiCaller.get<ResourceListRes>('/unknown', params),
+  details: (id: number) => apiCaller.get<SingleResourceRes>(`/unknown/${id}`),
 };
 
-export const getResourceDetails = async (id: number): Promise<SingleResourceRes> => {
-  const response = await apiClient.get<SingleResourceRes>(`unknown/${id}`);
-
-  return response.data;
-};
+export default Resources;

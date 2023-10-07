@@ -1,17 +1,22 @@
 // Packages
-import { FC, memo } from 'react';
+import { FC, ReactNode, memo } from 'react';
 import Grid from '@mui/material/Grid';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
+import { SxProps, Theme } from '@mui/material/styles';
 // Components
 import Logo from '../Logo';
-import Navigation from '../Navigation';
 
-const Header: FC = memo(() => (
+interface Props {
+  children?: ReactNode;
+  sx?: SxProps<Theme>;
+}
+
+const Header: FC<Props> = memo(({ children, sx = {} }) => (
   <AppBar
     position="sticky"
-    sx={{ backgroundColor: 'secondary.main' }}
+    sx={{ backgroundColor: 'secondary.main', ...sx }}
   >
     <Container>
       <Toolbar disableGutters>
@@ -27,7 +32,7 @@ const Header: FC = memo(() => (
             item
             xs
           >
-            <Navigation />
+            {children}
           </Grid>
         </Grid>
       </Toolbar>

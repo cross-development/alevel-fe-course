@@ -20,7 +20,11 @@ export interface ListWithPaginationRes<T> {
   support: Support;
 }
 
-export interface RequestParams {
+export interface RequestData {
+  [key: string]: unknown;
+}
+
+export interface RequestParams extends RequestData {
   page: number;
 }
 

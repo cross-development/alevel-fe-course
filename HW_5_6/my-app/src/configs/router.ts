@@ -1,6 +1,8 @@
 // Components
 import HomePage from '../pages/HomePage';
 import UsersPage from '../pages/UsersPage';
+import SignInPage from '../pages/SignInPage';
+import SignUpPage from '../pages/SignUpPage';
 import ResourcePage from '../pages/ResourcesPage';
 // Types
 import { ReactPageEnhanced } from '../types/app';
@@ -11,7 +13,9 @@ const links = {
   home: '/',
   users: '/users',
   resources: '/resources',
-} as const;
+  signIn: '/sign-in',
+  signUp: '/sign-up',
+};
 
 interface Route {
   key: string;
@@ -42,6 +46,20 @@ const routes: Route[] = [
     path: links.resources,
     enabled: true,
     component: ResourcePage,
+  },
+  {
+    key: 'sign-in',
+    title: 'Sign In',
+    path: links.signIn,
+    enabled: false,
+    component: SignInPage,
+  },
+  {
+    key: 'sign-up',
+    title: 'Sign Up',
+    path: links.signUp,
+    enabled: false,
+    component: SignUpPage,
   },
 ];
 

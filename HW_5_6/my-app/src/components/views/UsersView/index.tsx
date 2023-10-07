@@ -10,7 +10,7 @@ import Pagination from '../../common/Pagination';
 import UserList from './components/UserList';
 import UserActions from './components/UserActions';
 // API
-import { userApi } from '../../../api/modules';
+import agent from '../../../api/modules';
 // Types
 import { ErrorRes } from '../../../types/common';
 import { UserListRes } from '../../../types/user';
@@ -27,8 +27,7 @@ const UsersView: FC = memo(() => {
   const handleGetUserList = useCallback(() => {
     setIsLoading(true);
 
-    userApi
-      .getUserList({ page: Number(searchParams.get('page')) || 1 })
+    agent.Users.list({ page: Number(searchParams.get('page')) || 1 })
       .then(setUsers)
       .catch((error: ErrorRes) => {
         setError(error);

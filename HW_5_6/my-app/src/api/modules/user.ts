@@ -1,29 +1,21 @@
 // API
-import apiClient from '../apiClient';
+import { apiCaller } from '../apiClient';
 // Types
 import { RequestParams } from '../../types/common';
-import { UserListRes, SingleUserRes, CreateUserRes, UpdateUserRes } from '../../types/user';
+import {
+  UserListRes,
+  SingleUserRes,
+  CreateUserRes,
+  UpdateUserRes,
+  CreateUserBody,
+  UpdateUserBody,
+} from '../../types/user';
 
-export const getUserList = async (params: RequestParams): Promise<UserListRes> => {
-  const response = await apiClient.get<UserListRes>('users', { params });
-
-  return response.data;
+const Users = {
+  list: (params: RequestParams) => apiCaller.get<UserListRes>('/users', params),
+  details: (id: number) => apiCaller.get<SingleUserRes>(`/users/${id}`),
+  create: (body: CreateUserBody) => apiCaller.post<CreateUserRes>('/users', body),
+  update: (id: number, body: UpdateUserBody) => apiCaller.put<UpdateUserRes>(`/users/${id}`, body),
 };
 
-export const getUserDetails = async (id: number): Promise<SingleUserRes> => {
-  const response = await apiClient.get<SingleUserRes>(`users/${id}`);
-
-  return response.data;
-};
-
-export const createUser = async (body: unknown): Promise<CreateUserRes> => {
-  const response = await apiClient.post<CreateUserRes>('users', body);
-
-  return response.data;
-};
-
-export const updateUser = async (id: number, body: unknown): Promise<UpdateUserRes> => {
-  const response = await apiClient.patch<UpdateUserRes>(`users/${id}`, body);
-
-  return response.data;
-};
+export default Users;

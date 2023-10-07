@@ -1,5 +1,5 @@
 // Types
-import { ListWithPaginationRes, SingleRes } from './common';
+import { ListWithPaginationRes, RequestData, SingleRes } from './common';
 
 export interface User {
   id: number;
@@ -9,7 +9,7 @@ export interface User {
   avatar: string;
 }
 
-export interface CreateUser {
+export interface CreateUserBody extends RequestData {
   name: string;
   job: string;
 }
@@ -21,7 +21,7 @@ export interface CreateUserRes {
   createdAt: string;
 }
 
-export interface UpdateUser {
+export interface UpdateUserBody extends RequestData {
   name: string;
   job: string;
 }

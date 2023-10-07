@@ -9,7 +9,7 @@ import ErrorData from '../../common/ErrorData';
 import Pagination from '../../common/Pagination';
 import ResourceList from './components/ResourceList';
 // API
-import { resourceApi } from '../../../api/modules';
+import agent from '../../../api/modules';
 // Types
 import { ErrorRes } from '../../../types/common';
 import { ResourceListRes } from '../../../types/resource';
@@ -26,8 +26,7 @@ const ResourcesView: FC = memo(() => {
   const handleGetResourceList = useCallback(() => {
     setIsLoading(true);
 
-    resourceApi
-      .getResourceList({ page: Number(searchParams.get('page')) || 1 })
+    agent.Resources.list({ page: Number(searchParams.get('page')) || 1 })
       .then(setResources)
       .catch((error: ErrorRes) => {
         setError(error);
