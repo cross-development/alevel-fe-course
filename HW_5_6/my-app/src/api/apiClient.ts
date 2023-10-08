@@ -26,12 +26,12 @@ apiClient.interceptors.response.use(async response => {
   }
 });
 
-const responseBody = <T>(response: AxiosResponse<T>): T => response.data;
+const resData = <T>(response: AxiosResponse<T>): T => response.data;
 
 export const apiCaller = {
-  get: <T>(url: string, params?: RequestData) => apiClient.get<T>(url, params).then(responseBody),
-  post: <T>(url: string, body: RequestData) => apiClient.post<T>(url, body).then(responseBody),
-  patch: <T>(url: string, body: RequestData) => apiClient.patch<T>(url, body).then(responseBody),
-  put: <T>(url: string, body: RequestData) => apiClient.put<T>(url, body).then(responseBody),
-  delete: <T>(url: string) => apiClient.delete<T>(url).then(responseBody),
+  get: <T>(url: string, params?: RequestData) => apiClient.get<T>(url, { params }).then(resData),
+  post: <T>(url: string, body: RequestData) => apiClient.post<T>(url, body).then(resData),
+  patch: <T>(url: string, body: RequestData) => apiClient.patch<T>(url, body).then(resData),
+  put: <T>(url: string, body: RequestData) => apiClient.put<T>(url, body).then(resData),
+  delete: <T>(url: string) => apiClient.delete<T>(url).then(resData),
 };

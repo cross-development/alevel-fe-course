@@ -1,9 +1,15 @@
 // Packages
 import { makeAutoObservable, runInAction } from 'mobx';
+import { AxiosError } from 'axios';
+// API
+import agent from '../api/modules';
+// Types
+import { SignInBody, SignUpBody } from '../types/auth';
 
 class AuthStore {
   email = '';
   token = '';
+  error: AxiosError | null = null;
   isLoading = false;
   isLoggedIn = false;
 
@@ -11,12 +17,21 @@ class AuthStore {
     makeAutoObservable(this);
   }
 
-  signIn = async (): Promise<void> => {
+  signIn = async (data: SignInBody): Promise<void> => {
     this.isLoading = true;
 
     try {
+      const { token } = await agent.Auth.signIn(data);
+
+      runInAction(() => {
+        this.email = data.email;
+        this.token = token;
+        this.isLoggedIn = true;
+      });
     } catch (error) {
-      console.log('error', error);
+      console.log('Error in the signIn action', error);
+
+      this.error = error as AxiosError;
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -24,12 +39,21 @@ class AuthStore {
     }
   };
 
-  signUp = async (): Promise<void> => {
+  signUp = async (data: SignUpBody): Promise<void> => {
     this.isLoading = true;
 
     try {
+      const { token } = await agent.Auth.signUp(data);
+
+      runInAction(() => {
+        this.email = data.email;
+        this.token = token;
+        this.isLoggedIn = true;
+      });
     } catch (error) {
-      console.log('error', error);
+      console.log('Error in the signUp action', error);
+
+      this.error = error as AxiosError;
     } finally {
       runInAction(() => {
         this.isLoading = false;

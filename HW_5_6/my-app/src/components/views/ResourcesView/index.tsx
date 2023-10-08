@@ -1,44 +1,26 @@
 // Packages
-import { FC, memo, useCallback, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
+import { observer } from 'mobx-react-lite';
 import Box from '@mui/material/Box';
 // Components
 import Loader from '../../common/Loader';
 import ErrorData from '../../common/ErrorData';
 import Pagination from '../../common/Pagination';
 import ResourceList from './components/ResourceList';
-// API
-import agent from '../../../api/modules';
-// Types
-import { ErrorRes } from '../../../types/common';
-import { ResourceListRes } from '../../../types/resource';
+// Stores
+import { useStore } from '../../../stores/store';
 
-const ResourcesView: FC = memo(() => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<ErrorRes | null>(null);
-  const [resources, setResources] = useState<ResourceListRes | null>(null);
-
+const ResourcesView: FC = observer(() => {
   const [searchParams] = useSearchParams();
 
-  const { enqueueSnackbar } = useSnackbar();
-
-  const handleGetResourceList = useCallback(() => {
-    setIsLoading(true);
-
-    agent.Resources.list({ page: Number(searchParams.get('page')) || 1 })
-      .then(setResources)
-      .catch((error: ErrorRes) => {
-        setError(error);
-
-        enqueueSnackbar({ message: error?.message, variant: 'error' });
-      })
-      .finally(() => setIsLoading(false));
-  }, [enqueueSnackbar, searchParams]);
+  const {
+    resourceStore: { getResourceList, isLoading, error, resources },
+  } = useStore();
 
   useEffect(() => {
-    handleGetResourceList();
-  }, [handleGetResourceList]);
+    getResourceList({ page: Number(searchParams.get('page')) || 1 });
+  }, [getResourceList, searchParams]);
 
   if (isLoading || !resources) {
     return <Loader />;

@@ -1,7 +1,7 @@
 // Packages
-import { FC, memo, useCallback, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
+import { observer } from 'mobx-react-lite';
 import Box from '@mui/material/Box';
 // Components
 import Loader from '../../common/Loader';
@@ -9,37 +9,19 @@ import ErrorData from '../../common/ErrorData';
 import Pagination from '../../common/Pagination';
 import UserList from './components/UserList';
 import UserActions from './components/UserActions';
-// API
-import agent from '../../../api/modules';
-// Types
-import { ErrorRes } from '../../../types/common';
-import { UserListRes } from '../../../types/user';
+// Stores
+import { useStore } from '../../../stores/store';
 
-const UsersView: FC = memo(() => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<ErrorRes | null>(null);
-  const [users, setUsers] = useState<UserListRes | null>(null);
-
+const UsersView: FC = observer(() => {
   const [searchParams] = useSearchParams();
 
-  const { enqueueSnackbar } = useSnackbar();
-
-  const handleGetUserList = useCallback(() => {
-    setIsLoading(true);
-
-    agent.Users.list({ page: Number(searchParams.get('page')) || 1 })
-      .then(setUsers)
-      .catch((error: ErrorRes) => {
-        setError(error);
-
-        enqueueSnackbar({ message: error?.message, variant: 'error' });
-      })
-      .finally(() => setIsLoading(false));
-  }, [enqueueSnackbar, searchParams]);
+  const {
+    userStore: { getUserList, isLoading, error, users },
+  } = useStore();
 
   useEffect(() => {
-    handleGetUserList();
-  }, [handleGetUserList]);
+    getUserList({ page: Number(searchParams.get('page')) || 1 });
+  }, [getUserList, searchParams]);
 
   if (isLoading || !users) {
     return <Loader />;
