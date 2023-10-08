@@ -14,7 +14,7 @@ const Pagination: FC<Props> = memo(({ totalPages }) => {
   const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page')) || 1);
 
   const handleChangeCurrentPage = useCallback(
-    (_: ChangeEvent<unknown>, page: number) => {
+    (_: ChangeEvent<unknown>, page: number): void => {
       setCurrentPage(page);
       setSearchParams({ page: page.toString() });
     },

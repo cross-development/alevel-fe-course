@@ -1,6 +1,3 @@
-// Packages
-import { AxiosError } from 'axios';
-
 export interface Support {
   url: string;
   text: string;
@@ -20,12 +17,11 @@ export interface ListWithPaginationRes<T> {
   support: Support;
 }
 
-export interface RequestData {
-  [key: string]: unknown;
-}
-
-export interface RequestParams extends RequestData {
+export interface RequestParams {
   page: number;
 }
 
-export type ErrorRes = AxiosError;
+export interface ErrorRes {
+  code?: number;
+  message: string;
+}

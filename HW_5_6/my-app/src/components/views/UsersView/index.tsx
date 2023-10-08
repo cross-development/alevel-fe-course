@@ -23,10 +23,6 @@ const UsersView: FC = observer(() => {
     getUserList({ page: Number(searchParams.get('page')) || 1 });
   }, [getUserList, searchParams]);
 
-  if (isLoading || !users) {
-    return <Loader />;
-  }
-
   if (error) {
     return (
       <ErrorData
@@ -34,6 +30,10 @@ const UsersView: FC = observer(() => {
         message={error.message}
       />
     );
+  }
+
+  if (isLoading || !users) {
+    return <Loader />;
   }
 
   return (

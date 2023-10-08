@@ -1,7 +1,4 @@
-// Types
-import { RequestData } from './common';
-
-export interface SignInBody extends RequestData {
+export interface SignInBody {
   email: string;
   password: string;
 }
@@ -10,7 +7,7 @@ export interface SignInRes {
   token: string;
 }
 
-export interface SignUpBody extends RequestData {
+export interface SignUpBody {
   email: string;
   password: string;
 }

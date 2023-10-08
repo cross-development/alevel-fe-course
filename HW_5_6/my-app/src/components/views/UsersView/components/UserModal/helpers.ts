@@ -2,10 +2,10 @@
 import * as yup from 'yup';
 import { HTMLInputTypeAttribute } from 'react';
 // Types
-import { UpdateUserBody } from '../../../../../types/user';
+import { CreateUserBody } from '../../../../../types/user';
 
 export const validationSchema = yup.object().shape({
-  email: yup.string().email().trim(),
+  email: yup.string().email().trim().required('Please fill in your email'),
   firstName: yup
     .string()
     .min(2, 'Use at least 2 characters')
@@ -14,13 +14,13 @@ export const validationSchema = yup.object().shape({
     .string()
     .min(2, 'Use at least 2 characters')
     .required('Please fill in your last name'),
-  job: yup.string(),
+  job: yup.string().min(5, 'Use at least 2 characters').required('Please fill in your job'),
 });
 
 interface FormField {
   type: HTMLInputTypeAttribute;
   label: string;
-  name: keyof UpdateUserBody;
+  name: keyof CreateUserBody;
   width: number;
 }
 
@@ -29,13 +29,13 @@ export const userFormFields: FormField[] = [
     type: 'text',
     label: 'First Name',
     name: 'firstName',
-    width: 6,
+    width: 12,
   },
   {
     type: 'text',
     label: 'Last Name',
     name: 'lastName',
-    width: 6,
+    width: 12,
   },
   {
     type: 'email',

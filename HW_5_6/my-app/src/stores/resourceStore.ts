@@ -1,16 +1,15 @@
 // Packages
 import { makeAutoObservable, runInAction } from 'mobx';
-import { AxiosError } from 'axios';
 // API
 import agent from '../api/modules';
 // Types
-import { RequestParams } from '../types/common';
+import { ErrorRes, RequestParams } from '../types/common';
 import { ResourceListRes, SingleResourceRes } from '../types/resource';
 
 class ResourceStore {
   resources: ResourceListRes | null = null;
   resourceDetails: SingleResourceRes | null = null;
-  error: AxiosError | null = null;
+  error: ErrorRes | null = null;
   isLoading = false;
 
   constructor() {
@@ -27,9 +26,11 @@ class ResourceStore {
         this.resources = resources;
       });
     } catch (error) {
-      console.log('Error in the getResourceList action', error);
+      runInAction(() => {
+        console.log('Error in the getResourceList action', error);
 
-      this.error = error as AxiosError;
+        this.error = error as ErrorRes;
+      });
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -47,9 +48,11 @@ class ResourceStore {
         this.resourceDetails = resourceDetails;
       });
     } catch (error) {
-      console.log('Error in the getResourceDetails action', error);
+      runInAction(() => {
+        console.log('Error in the getResourceDetails action', error);
 
-      this.error = error as AxiosError;
+        this.error = error as ErrorRes;
+      });
     } finally {
       runInAction(() => {
         this.isLoading = false;

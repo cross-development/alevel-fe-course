@@ -1,17 +1,15 @@
 // Packages
 import { makeAutoObservable, runInAction } from 'mobx';
-import { AxiosError } from 'axios';
-import { enqueueSnackbar } from 'notistack';
 // API
 import agent from '../api/modules';
 // Types
-import { RequestParams } from '../types/common';
+import { ErrorRes, RequestParams } from '../types/common';
 import { UserListRes, SingleUserRes, CreateUserBody, UpdateUserBody } from '../types/user';
 
 class UserStore {
   users: UserListRes | null = null;
   userDetails: SingleUserRes | null = null;
-  error: AxiosError | null = null;
+  error: ErrorRes | null = null;
   isLoading = false;
 
   constructor() {
@@ -28,9 +26,11 @@ class UserStore {
         this.users = users;
       });
     } catch (error) {
-      console.log('Error in the getUserList action', error);
+      runInAction(() => {
+        console.log('Error in the getUserList action', error);
 
-      this.error = error as AxiosError;
+        this.error = error as ErrorRes;
+      });
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -48,9 +48,11 @@ class UserStore {
         this.userDetails = userDetails;
       });
     } catch (error) {
-      console.log('Error in the getUserDetails action', error);
+      runInAction(() => {
+        console.log('Error in the getUserDetails action', error);
 
-      this.error = error as AxiosError;
+        this.error = error as ErrorRes;
+      });
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -63,17 +65,12 @@ class UserStore {
 
     try {
       await agent.Users.create(data);
-
-      runInAction(() => {
-        enqueueSnackbar({
-          message: 'User has been created successfully',
-          variant: 'success',
-        });
-      });
     } catch (error) {
-      console.log('Error in the crateUser action', error);
+      runInAction(() => {
+        console.log('Error in the crateUser action', error);
 
-      this.error = error as AxiosError;
+        this.error = error as ErrorRes;
+      });
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -86,17 +83,12 @@ class UserStore {
 
     try {
       await agent.Users.update(id, data);
-
-      runInAction(() => {
-        enqueueSnackbar({
-          message: 'User has been updated successfully',
-          variant: 'success',
-        });
-      });
     } catch (error) {
-      console.log('Error in the updateUser action', error);
+      runInAction(() => {
+        console.log('Error in the updateUser action', error);
 
-      this.error = error as AxiosError;
+        this.error = error as ErrorRes;
+      });
     } finally {
       runInAction(() => {
         this.isLoading = false;

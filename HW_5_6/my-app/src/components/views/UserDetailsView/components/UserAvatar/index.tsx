@@ -3,18 +3,18 @@ import { FC, memo } from 'react';
 import Paper from '@mui/material/Paper';
 
 interface Props {
-  imageUrl: string;
+  avatar: string;
 }
 
-const UserAvatar: FC<Props> = memo(({ imageUrl }) => (
+const UserAvatar: FC<Props> = memo(({ avatar }) => (
   <Paper
     elevation={3}
     sx={{ display: 'flex' }}
   >
     <img
-      src={imageUrl}
+      src={avatar}
       alt="User's avatar"
-      style={{ height: '100%', width: '100%' }}
+      style={{ height: '18rem', width: '18rem' }}
     />
   </Paper>
 ));

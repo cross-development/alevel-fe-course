@@ -3,8 +3,6 @@ import axios, { AxiosError, AxiosResponse, CreateAxiosDefaults } from 'axios';
 import applyCaseMiddleware from 'axios-case-converter';
 // Configs
 import appConfig from '../configs/app';
-// Types
-import { RequestData } from '../types/common';
 
 const apiConfig: CreateAxiosDefaults = {
   baseURL: appConfig.API_URL,
@@ -16,22 +14,31 @@ const apiConfig: CreateAxiosDefaults = {
 
 export const apiClient = applyCaseMiddleware(axios.create(apiConfig));
 
-apiClient.interceptors.response.use(async response => {
-  try {
-    return response;
-  } catch (error) {
-    console.log('Error in the interceptors', error);
+apiClient.interceptors.response.use(
+  async fulfilledResponse => {
+    try {
+      return fulfilledResponse;
+    } catch (e) {
+      const error = e as AxiosError;
+      console.log('Error in the fulfilled response interceptor', error);
 
-    return await Promise.reject(error as AxiosError);
-  }
-});
+      return await Promise.reject({ code: error.response?.status, message: error.message });
+    }
+  },
+  async rejectedResponse => {
+    const error = rejectedResponse as AxiosError;
+    console.log('Error in the rejected response interceptor', error);
+
+    return await Promise.reject({ code: error.response?.status, message: error.message });
+  },
+);
 
 const resData = <T>(response: AxiosResponse<T>): T => response.data;
 
 export const apiCaller = {
-  get: <T>(url: string, params?: RequestData) => apiClient.get<T>(url, { params }).then(resData),
-  post: <T>(url: string, body: RequestData) => apiClient.post<T>(url, body).then(resData),
-  patch: <T>(url: string, body: RequestData) => apiClient.patch<T>(url, body).then(resData),
-  put: <T>(url: string, body: RequestData) => apiClient.put<T>(url, body).then(resData),
+  get: <T>(url: string, params?: unknown) => apiClient.get<T>(url, { params }).then(resData),
+  post: <T>(url: string, body: unknown) => apiClient.post<T>(url, body).then(resData),
+  patch: <T>(url: string, body: unknown) => apiClient.patch<T>(url, body).then(resData),
+  put: <T>(url: string, body: unknown) => apiClient.put<T>(url, body).then(resData),
   delete: <T>(url: string) => apiClient.delete<T>(url).then(resData),
 };

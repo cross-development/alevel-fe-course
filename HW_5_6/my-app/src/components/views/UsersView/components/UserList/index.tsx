@@ -1,7 +1,7 @@
 // Packages
 import { FC, memo } from 'react';
-import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
+import Grid from '@mui/material/Grid';
 // Components
 import UserCard from '../UserCard';
 // Configs

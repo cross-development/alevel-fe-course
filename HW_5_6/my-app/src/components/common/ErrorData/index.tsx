@@ -2,12 +2,10 @@
 import { FC, memo } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-// Types
-import { ErrorRes } from '../../../types/common';
 
 interface Props {
-  code?: ErrorRes['code'];
-  message: ErrorRes['message'];
+  code?: number;
+  message: string;
 }
 
 const ErrorData: FC<Props> = memo(({ message, code }) => (
@@ -20,9 +18,9 @@ const ErrorData: FC<Props> = memo(({ message, code }) => (
       justifyContent: 'center',
     }}
   >
-    {code && <Typography variant="h2">{code}</Typography>}
+    {code && <Typography variant="h1">{code}</Typography>}
 
-    <Typography variant="h1">{message}</Typography>
+    <Typography variant="h3">{message}</Typography>
   </Box>
 ));
 

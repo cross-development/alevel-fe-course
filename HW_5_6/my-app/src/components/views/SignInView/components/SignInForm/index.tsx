@@ -23,7 +23,7 @@ const SignInForm: FC = memo(() => {
     defaultValues: { email: '', password: '' },
   });
 
-  const onSubmit = async (data: SignInBody) => {
+  const onSubmit = async (data: SignInBody): Promise<void> => {
     await authStore.signIn(data);
 
     navigate(routerConfig.links.home);

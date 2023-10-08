@@ -1,15 +1,15 @@
 // Packages
 import { makeAutoObservable, runInAction } from 'mobx';
-import { AxiosError } from 'axios';
 // API
 import agent from '../api/modules';
 // Types
+import { ErrorRes } from '../types/common';
 import { SignInBody, SignUpBody } from '../types/auth';
 
 class AuthStore {
   email = '';
   token = '';
-  error: AxiosError | null = null;
+  error: ErrorRes | null = null;
   isLoading = false;
   isLoggedIn = false;
 
@@ -29,9 +29,11 @@ class AuthStore {
         this.isLoggedIn = true;
       });
     } catch (error) {
-      console.log('Error in the signIn action', error);
+      runInAction(() => {
+        console.log('Error in the signIn action', error);
 
-      this.error = error as AxiosError;
+        this.error = error as ErrorRes;
+      });
     } finally {
       runInAction(() => {
         this.isLoading = false;
@@ -51,9 +53,11 @@ class AuthStore {
         this.isLoggedIn = true;
       });
     } catch (error) {
-      console.log('Error in the signUp action', error);
+      runInAction(() => {
+        console.log('Error in the signUp action', error);
 
-      this.error = error as AxiosError;
+        this.error = error as ErrorRes;
+      });
     } finally {
       runInAction(() => {
         this.isLoading = false;

@@ -22,10 +22,6 @@ const ResourcesView: FC = observer(() => {
     getResourceList({ page: Number(searchParams.get('page')) || 1 });
   }, [getResourceList, searchParams]);
 
-  if (isLoading || !resources) {
-    return <Loader />;
-  }
-
   if (error) {
     return (
       <ErrorData
@@ -33,6 +29,10 @@ const ResourcesView: FC = observer(() => {
         message={error.message}
       />
     );
+  }
+
+  if (isLoading || !resources) {
+    return <Loader />;
   }
 
   return (

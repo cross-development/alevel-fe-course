@@ -32,4 +32,6 @@ const App: FC = () => {
   );
 };
 
+App.displayName = 'App';
+
 export default App;

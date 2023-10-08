@@ -5,7 +5,6 @@ import { observer } from 'mobx-react-lite';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -31,22 +30,21 @@ const UserMenu: FC = observer(() => {
 
   const handleSignOut = (): void => {
     authStore.signOut();
+
     navigate(routerConfig.links.home);
   };
 
   return (
     <Box sx={{ flexGrow: 0 }}>
-      <Tooltip title="Open user menu">
-        <IconButton
-          onClick={handleOpenUserMenu}
-          sx={{ p: 0 }}
-        >
-          <Avatar
-            alt="User avatar"
-            src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
-          />
-        </IconButton>
-      </Tooltip>
+      <IconButton
+        onClick={handleOpenUserMenu}
+        sx={{ p: 0 }}
+      >
+        <Avatar
+          alt="User avatar"
+          src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+        />
+      </IconButton>
 
       <Menu
         keepMounted
@@ -59,18 +57,27 @@ const UserMenu: FC = observer(() => {
         sx={{ mt: '2.875rem' }}
       >
         {authStore.isLoggedIn ? (
-          <MenuItem onClick={handleSignOut}>
+          <MenuItem
+            key="sign-out"
+            onClick={handleSignOut}
+          >
             <Typography textAlign="center">Sign Out</Typography>
           </MenuItem>
         ) : (
-          <>
-            <MenuItem onClick={handleNavigateToSignIn}>
+          [
+            <MenuItem
+              key="sign-in"
+              onClick={handleNavigateToSignIn}
+            >
               <Typography textAlign="center">Sign In</Typography>
-            </MenuItem>
-            <MenuItem onClick={handleNavigateToSignUp}>
+            </MenuItem>,
+            <MenuItem
+              key="sign-up"
+              onClick={handleNavigateToSignUp}
+            >
               <Typography textAlign="center">Sign Up</Typography>
-            </MenuItem>
-          </>
+            </MenuItem>,
+          ]
         )}
       </Menu>
     </Box>
