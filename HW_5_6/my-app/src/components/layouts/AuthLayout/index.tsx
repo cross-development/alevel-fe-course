@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-// Component
+// Components
 import Header from '../../common/Header';
 import { authContent } from './helpers';
 // Types
@@ -20,7 +20,7 @@ const AuthLayoutComponent: FC<Props> = memo(({ children }) => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Header>
+      <Header withUserMenu={false}>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Typography sx={{ mr: '1rem', color: 'text.primary' }}>
             {authContent[pathname]?.message}

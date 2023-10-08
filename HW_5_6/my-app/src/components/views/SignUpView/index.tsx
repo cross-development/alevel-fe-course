@@ -5,15 +5,21 @@ import Typography from '@mui/material/Typography';
 // Components
 import SignUpForm from './components/SignUpForm';
 
-const SignUpView: FC = memo(() => {
-  return (
-    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <Typography variant="h1">Sign Up</Typography>
+const SignUpView: FC = memo(() => (
+  <Box
+    sx={{
+      flexGrow: 1,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+    }}
+  >
+    <Typography variant="h1">Sign Up</Typography>
 
-      <SignUpForm />
-    </Box>
-  );
-});
+    <SignUpForm />
+  </Box>
+));
 
 SignUpView.displayName = 'SignUpView';
 

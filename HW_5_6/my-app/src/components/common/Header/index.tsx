@@ -7,13 +7,15 @@ import Container from '@mui/material/Container';
 import { SxProps, Theme } from '@mui/material/styles';
 // Components
 import Logo from '../Logo';
+import UserMenu from '../UserMenu';
 
 interface Props {
-  children?: ReactNode;
   sx?: SxProps<Theme>;
+  children?: ReactNode;
+  withUserMenu?: boolean;
 }
 
-const Header: FC<Props> = memo(({ children, sx = {} }) => (
+const Header: FC<Props> = memo(({ children, withUserMenu = true, sx = {} }) => (
   <AppBar
     position="sticky"
     sx={{ backgroundColor: 'secondary.main', ...sx }}
@@ -34,6 +36,12 @@ const Header: FC<Props> = memo(({ children, sx = {} }) => (
           >
             {children}
           </Grid>
+
+          {withUserMenu && (
+            <Grid item>
+              <UserMenu />
+            </Grid>
+          )}
         </Grid>
       </Toolbar>
     </Container>

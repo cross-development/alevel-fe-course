@@ -5,15 +5,21 @@ import Typography from '@mui/material/Typography';
 // Components
 import SignInForm from './components/SignInForm';
 
-const SignInView: FC = memo(() => {
-  return (
-    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <Typography variant="h2">Sign In</Typography>
+const SignInView: FC = memo(() => (
+  <Box
+    sx={{
+      flexGrow: 1,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+    }}
+  >
+    <Typography variant="h2">Sign In</Typography>
 
-      <SignInForm />
-    </Box>
-  );
-});
+    <SignInForm />
+  </Box>
+));
 
 SignInView.displayName = 'SignInView';
 
